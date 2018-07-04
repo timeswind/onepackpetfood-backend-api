@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+npm-debug.log
+yuanyuan.rsa
+yuanyuan.rsa.pub
+.idea
