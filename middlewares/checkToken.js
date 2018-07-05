@@ -1,6 +1,7 @@
 module.exports = function () {
   return function* checkToken (next) {
     let urlArray = this.request.url.split('/')
+    console.log(urlArray)
     if (urlArray[1] !== 'public') {
       let token = this.headers.authorization
       if (!token) {
