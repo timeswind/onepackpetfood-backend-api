@@ -1,24 +1,27 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
+// var ObjectId = Schema.Types.ObjectId;
 
 var StoreSchema = new Schema({
-  owner: { type: ObjectId, ref: 'User', require: true },
-  name: { type: String, require: true },
-  address: {
-    formattedAddress: String,
-    streetAddress: String,
-    addressLocality: String,
-    addressRegion: String,
-    postalCode: String,
-    loc: { type: [Number] },
-  },
+  tagtrack_code: { type: String },
+  name: { type: String },
+  owner_name: { type: String },
+  phone: { type: String },
+  address: { type: String },
+  note: { type: String },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 });
 
+// name: string;
+// address: string;
+// phone: string;
+// owner_name: string;
+// tagtrace_code: string;
+// note: string;
+
 StoreSchema.index({
-  owner: 1
+  tagtrack_code: 1
 });
 
 module.exports = mongoose.model('Store', StoreSchema);
