@@ -6,6 +6,7 @@ var ObjectId = Schema.Types.ObjectId;
 var UserSchema = new Schema({
   name: { type: String, required: false },
   email: { type: String, required: true, unique: true},
+  phone: { type: String },
   avatar: { type: String, required: false },
   verify: { type: Boolean, default: false },
   password: { type: String, required: true },
