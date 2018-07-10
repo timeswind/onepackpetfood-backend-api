@@ -10,7 +10,6 @@ var UserSchema = new Schema({
   avatar: { type: String, required: false },
   verify: { type: Boolean, default: false },
   password: { type: String, required: true },
-  company: { type: String, required: false },
   role: { type: Number, required: false }, //  1 for normal user, 2 for organization account, 100 for admin
   permissions: { type: [String] },
   created_at: { type: Date, default: Date.now },

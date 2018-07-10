@@ -12,6 +12,9 @@ mongoose.connect(config.mongodb.developmentUrl, function (err) {
 exports.User = require('./User');
 exports.Tagtrack = require('./Tagtrack');
 exports.Store = require('./Store');
+exports.StoreAccount = require('./StoreAccount');
+exports.Item = require('./Item');
+exports.Order = require('./Order');
 // exports.Article = require('./Article');
 // exports.CardTemplate = require('./CardTemplate');
 // exports.Card = require('./Card');
