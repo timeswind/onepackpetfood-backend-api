@@ -19,8 +19,7 @@ exports.post = function* () {
     id: userInfo.id,
     name: userInfo.name,
     email: userInfo.email,
-    role: userInfo.role,
-    school: userInfo.school
+    role: userInfo.role
   };
 
   var token = jwt.sign(payload, privateKey, {algorithm: 'RS256', expiresIn: '7d'});
@@ -31,9 +30,7 @@ exports.post = function* () {
     name: userInfo.name,
     email: userInfo.email,
     role: userInfo.role,
-    school: userInfo.school,
     permissions: userInfo.permissions || [],
-    avatar: userInfo.avatar,
     token: token
   };
 };
