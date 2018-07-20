@@ -1,62 +1,27 @@
 var Models = require('../../lib/core');
 var $Store = Models.$Store;
+var $StoreAccount = Models.$StoreAccount;
 
 exports.get = function* () {
     let user_id = this.state.user.id
     let user_store = yield $Store.getStoreByOwnerId(user_id);
-    if (user_store) {
+    var store_account = null;
+    if (user_store && 'id' in user_store) {
+        store_account = yield $StoreAccount.getStoreAccountByStoreId(user_store.id)
+    }
+    if (user_store && store_account) {
         this.state = 200;
         this.body = {
             success: true,
-            user_store: user_store
+            store: user_store,
+            storeAccount: store_account
         }
     } else {
         this.state = 200;
         this.body = {
             success: false,
-            user_store: {}
+            store: {},
+            storeAccount: {}
         }
     }
 }
-
-// exports.post = function* () {
-//     let user_id = this.state.user.id
-//     var updates = this.request.body
-
-//     updates["updated_at"] = new Date()
-//     delete updates._id
-//     var findUserAndUpdate = yield $User.update(user_id, updates)
-//     console.log(findUserAndUpdate)
-//     if (findUserAndUpdate) {
-//         this.status = 200;
-//         this.body = {
-//             success: true
-//         };
-//     } else {
-//         this.status = 500;
-//         this.body = {
-//             success: false,
-//             error: "Fail to update"
-//         };
-//     }
-// }
-
-// exports.get = function* () {
-//     let user = this.state.user
-
-//     var userInfo = yield $User.getById(user.id)
-
-//     if (userInfo) {
-//       this.status = 200;
-//       this.body = {
-//         success: true,
-//         userInfo: userInfo
-//       };
-//     } else {
-//       this.status = 500;
-//       this.body = {
-//         success: false,
-//         error: "User account don't exist"
-//       };
-//     }
-//   }

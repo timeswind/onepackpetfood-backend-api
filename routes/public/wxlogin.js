@@ -18,10 +18,9 @@ exports.get = function* () {
     const parsedAccessTokenData = JSON.parse(accessTokenData)
     const access_token = parsedAccessTokenData.access_token
     const openid = parsedAccessTokenData.openid
+    console.log('parsedAccessTokenData', parsedAccessTokenData)
     const rawuserinfo = yield getUserInfo(access_token, openid)
     const parsedUserInfo = JSON.parse(rawuserinfo)
-    this.status = 200
-    this.body = "test"
 
     var userInfo = yield $User.getByWxOpenId(openid);
     if (!userInfo) {
