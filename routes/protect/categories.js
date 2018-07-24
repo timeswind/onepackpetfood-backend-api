@@ -5,6 +5,7 @@ exports.get = function* () {
   const scope = this.query.scope
   const parent = this.query.parent // parent_id
   if (scope) {
+    console.log('hit')
     let rootCategories = yield $Category.getRoot(scope)
     if (rootCategories) {
       this.state = 200

@@ -25,7 +25,7 @@ exports.put = function* () {
 
 exports.post = function* () {
     var newCategoryData = this.request.body;
-    if (newCategoryData && newCategoryData.scope && newCategoryData.parent) {
+    if (newCategoryData && newCategoryData.scope && 'parent' in newCategoryData) {
         let newCategory = yield $Category.newCategory(newCategoryData);
         if (newCategory) {
             this.status = 200

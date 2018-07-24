@@ -6,7 +6,7 @@ var CategorySchema = new Schema({
     scope: { type: String, required: true },// 不同地方用的目录
     parent: { type: ObjectId, ref: 'Category', default: null },
     name: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
 });
