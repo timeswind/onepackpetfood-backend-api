@@ -4,7 +4,7 @@ var $Dropshipping = Models.$Dropshipping;
 exports.put = function* () {
     // let user_id = this.state.user.id
     var updates = this.request.body
-
+    console.log(updates)
     updates["updated_at"] = new Date()
     let dropshipping_id = updates._id
     delete updates._id
@@ -40,3 +40,15 @@ exports.post = function* () {
         }
     }
 };
+
+exports.delete = function* () {
+    var id = this.request.query.id;
+    let deleted = yield $Dropshipping.deleteById(id)
+    if (deleted) {
+        this.status = 200
+        this.body = {
+            success: true,
+            deleted: deleted
+        }
+    }
+}

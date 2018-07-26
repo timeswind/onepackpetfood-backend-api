@@ -5,7 +5,15 @@ var Schema = mongoose.Schema;
 var ExtrasSchema = new Schema({
     key: { type: String, require: true },
     value: { type: String, require: false },
+    _id: false
 })
+
+var PriceSetSchema = new Schema({
+    name: { type: String, require: true },
+    price: { type: Number, required: true },
+    count: { type: Number, required: true, default: 1 },
+    _id: false
+});
 
 var DropshippingSchema = new Schema({
     good_images: { type: [String], required: false }, //产品图片
@@ -16,6 +24,7 @@ var DropshippingSchema = new Schema({
     good_name: { type: String, required: true }, //商品名
     good_description: { type: String, required: false }, //商品描述
     price: { type: Number, required: true }, //单价
+    price_sets: [PriceSetSchema],
     weight: { type: String, required: false }, //重量
     average_shipping_time: { type: String, required: false }, //平均发货时长
     shipping_cost: { type: String, required: false }, //快递费
