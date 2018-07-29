@@ -2,6 +2,27 @@ var Models = require('../../lib/core');
 var $Good = Models.$Good;
 var $Store = Models.$Store;
 
+exports.put = function* () {
+    // let user_id = this.state.user.id
+    var updates = this.request.body
+    updates["updated_at"] = new Date()
+    let good_id = updates._id
+    delete updates._id
+    var findGoodAndUpdate = yield $Good.update(good_id, updates)
+    if (findGoodAndUpdate) {
+        this.status = 200;
+        this.body = {
+            success: true
+        };
+    } else {
+        this.status = 500;
+        this.body = {
+            success: false,
+            error: "Fail to update"
+        };
+    }
+}
+
 exports.post = function* () {
     var newGoodData = this.request.body
     var user_id = this.state.user.id
@@ -50,3 +71,15 @@ exports.post = function* () {
         }
     }
 };
+
+exports.delete = function* () {
+    var id = this.request.query.id;
+    let deleted = yield $Good.deleteById(id)
+    if (deleted) {
+        this.status = 200
+        this.body = {
+            success: true,
+            deleted: deleted
+        }
+    }
+}

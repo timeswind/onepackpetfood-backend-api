@@ -6,13 +6,17 @@ var qs = require('qs');
 var config = require('config-lite');
 var privateKey = fs.readFileSync(config.privateKeyName);
 const getSessionKey = require('../../lib/wechat/jscode2session');
-const domain = config.domain;
+// const domain = config.domain;
 
 exports.get = function* () {
     const query = this.request.query;
     const js_code = query.js_code
-    const userInfoData = query.userInfo
-    const parsedUserInfo = JSON.parse(userInfoData)
+    var userInfoData = null
+    var parsedUserInfo = null
+    if ('userInfo' in query) {
+        userInfoData = query.userInfo
+        parsedUserInfo = JSON.parse(userInfoData)
+    }
     const union_tagtrack_id = query.union_tagtrack_id
     const sessionKeyAndOpenID = yield getSessionKey(js_code)
     const parsedSessionKeyAndOpenIDAndUnionID = JSON.parse(sessionKeyAndOpenID)
@@ -21,8 +25,7 @@ exports.get = function* () {
     const openid = parsedSessionKeyAndOpenIDAndUnionID["openid"]
     const unionid = parsedSessionKeyAndOpenIDAndUnionID["unionid"]
 
-    console.log(parsedSessionKeyAndOpenIDAndUnionID)
-    console.log('userInfo', parsedUserInfo)
+    // console.log(parsedSessionKeyAndOpenIDAndUnionID)
     this.status = 200;
     this.body = "test";
 
@@ -53,7 +56,7 @@ exports.get = function* () {
                 wx_unionid: newUser.wx_unionid,
             };
 
-            var token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '7d' });
+            var token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '30d' });
             this.status = 200
             this.body = {
                 success: true,
@@ -79,9 +82,9 @@ exports.get = function* () {
             wx_openid: userInfo.wx_openid,
             wx_unionid: userInfo.wx_unionid,
         };
-
-        const token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '7d' });
+        const token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '30d' });
         this.status = 200
+        console.log(token)
         this.body = {
             success: true,
             name: userInfo.name,

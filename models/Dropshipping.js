@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-// var ObjectId = Schema.Types.ObjectId;
+var ObjectId = Schema.Types.ObjectId;
 
 var ExtrasSchema = new Schema({
     key: { type: String, require: true },
@@ -29,6 +29,8 @@ var DropshippingSchema = new Schema({
     average_shipping_time: { type: String, required: false }, //平均发货时长
     shipping_cost: { type: String, required: false }, //快递费
     seller_credit: { type: String, required: false }, //商家信用
+    root_category: { type: ObjectId, required: true, ref: "Category" }, //商品类目
+    category: { type: ObjectId, required: true, ref: "Category" }, //商品类目
     extras: [ExtrasSchema],
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
