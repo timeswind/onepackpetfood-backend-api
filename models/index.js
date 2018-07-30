@@ -18,3 +18,4 @@ exports.Order = require('./Order');
 exports.Category = require('./Category');
 exports.Dropshipping = require('./Dropshipping')
 exports.Address = require('./Address')
+exports.Shopcart = require('./Shopcart')
