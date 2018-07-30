@@ -7,7 +7,7 @@ var wx_xcx_appID = "wxb3ff1fcb37b94be1"
 var wx_xcx_appSecret = "a6c3766dc5d9b08cdda977b801617356"
 
 if (process.env.NODE_ENV === 'production') {
-    domain = "www.xiaoquanju.xyz"
+    domain = "api.cssapsu.cn"
     wx_appID = "wxad001b07cb52f3fe" //小犬居宠物生活服务号
     wx_appSecret = "025c5567e6a65f0624dd16d7bd1ea819"
 }
