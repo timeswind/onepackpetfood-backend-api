@@ -6,8 +6,7 @@ var PriceSetSchema = new Schema({
     name: { type: String, require: true },
     price: { type: Number, required: true },
     count: { type: Number, required: true, default: 1 },
-    image: { type: String, require: false },
-    _id: false
+    image: { type: String, require: false }
 });
 
 const ExtrasSchema = new Schema({
@@ -18,8 +17,7 @@ const ExtrasSchema = new Schema({
 
 const specificationSchema = new Schema({
     key: { type: String, require: false },
-    value: { type: String, require: false },
-    _id: false
+    value: { type: String, require: false }
 })
 
 var GoodSchema = new Schema({

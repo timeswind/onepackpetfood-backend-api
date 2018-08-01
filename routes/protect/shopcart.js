@@ -28,7 +28,7 @@ exports.put = function* () {
     delete updates._id
     delete updates.user
     delete updates.good
-    
+
     var findShopcartAndUpdate = yield $Shopcart.updateUserShopcart(shopcart_id, user_id, updates)
     if (findShopcartAndUpdate) {
         this.status = 200;
@@ -46,16 +46,28 @@ exports.put = function* () {
 }
 
 exports.post = function* () {
-    const user_id = this.state.user.id
-    var newShopCartData = this.request.body
+    const user_id = this.state.user.id;
+    var newShopCartData = this.request.body;
+    const price_set_id = newShopCartData["price_set"];
     newShopCartData["user"] = user_id
-    const newShopCart = yield $Shopcart.newShopcart(newShopCartData);
 
-    if (newShopCart) {
+    const ifSamePriceSetExist = yield $Shopcart.getExistPriceSetShopcart(user_id, price_set_id)
+    if (ifSamePriceSetExist) {
+        const existShopCartId = ifSamePriceSetExist._id
+        yield $Shopcart.incrementShopcartItemCount(existShopCartId)
         this.state = 200
         this.body = {
-            success: true,
-            shopcart: newShopCart
+            success: true
+        }
+    } else {
+        const newShopCart = yield $Shopcart.newShopcart(newShopCartData);
+
+        if (newShopCart) {
+            this.state = 200
+            this.body = {
+                success: true,
+                shopcart: newShopCart
+            }
         }
     }
 }

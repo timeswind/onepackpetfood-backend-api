@@ -7,7 +7,7 @@ var PriceSetSchema = new Schema({
     name: { type: String, require: true },
     price: { type: Number, required: true },
     count: { type: Number, required: true, default: 1 },
-    _id: false
+    image: { type: String, required: false }
 });
 
 var ShopcartSchema = new Schema({
@@ -18,7 +18,8 @@ var ShopcartSchema = new Schema({
 });
 
 ShopcartSchema.index({
-    user: 1
+    user: 1,
+    "price_set._id": 1
 });
 
 module.exports = mongoose.model('Shopcart', ShopcartSchema);
