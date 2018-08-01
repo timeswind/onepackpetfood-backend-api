@@ -6,12 +6,20 @@ var PriceSetSchema = new Schema({
     name: { type: String, require: true },
     price: { type: Number, required: true },
     count: { type: Number, required: true, default: 1 },
+    image: { type: String, require: false },
     _id: false
 });
 
-var ExtrasSchema = new Schema({
-    key: { type: String, require: true },
+const ExtrasSchema = new Schema({
+    key: { type: String, require: false },
     value: { type: String, require: false },
+    _id: false
+})
+
+const specificationSchema = new Schema({
+    key: { type: String, require: false },
+    value: { type: String, require: false },
+    _id: false
 })
 
 var GoodSchema = new Schema({
@@ -21,6 +29,7 @@ var GoodSchema = new Schema({
     name: { type: String, required: true }, //商品名称
     subtitle: { type: String, required: false }, //商品卖点
     price: { type: Number, required: true }, //单件价格
+    cost_price: { type: Number, required: false }, //成本价格
     strike_price: { type: Number, required: false }, //划线价格
     price_sets: [PriceSetSchema], //不同规格的价格
     stock: { type: Number, required: false }, //库存
@@ -29,6 +38,7 @@ var GoodSchema = new Schema({
     description: { type: String, required: false }, //微信转发描述
     images: [{ type: String, required: true }], //商品图片
     extras: [ExtrasSchema],
+    specifications: [specificationSchema], //商品规格
     total_sales_count: { type: Number, default: 0 },
     view_count: { type: Number, default: 0 },
     published: { type: Boolean, default: false }, //是否上架

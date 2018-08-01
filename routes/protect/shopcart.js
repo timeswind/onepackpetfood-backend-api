@@ -2,6 +2,24 @@ var Models = require('../../lib/core');
 var _ = require('lodash');
 var $Shopcart = Models.$Shopcart;
 
+exports.delete = function* () {
+    let user_id = this.state.user.id
+    let shopcart_id = this.request.body.id
+
+    const deleted = yield $Shopcart.deleteByUser(shopcart_id, user_id)
+    if (deleted) {
+        this.state = 200
+        this.body = {
+            success: true
+        }
+    } else {
+        this.state = 500
+        this.body = {
+            success: false
+        }
+    }
+}
+
 exports.put = function* () {
     let user_id = this.state.user.id
     var updates = this.request.body
@@ -31,7 +49,6 @@ exports.post = function* () {
     const user_id = this.state.user.id
     var newShopCartData = this.request.body
     newShopCartData["user"] = user_id
-    console.log(newShopCartData)
     const newShopCart = yield $Shopcart.newShopcart(newShopCartData);
 
     if (newShopCart) {
