@@ -30,7 +30,7 @@ const DropshippingSchema = new Schema({
     good_name: { type: String, required: true }, //商品名
     good_description: { type: String, required: false }, //商品描述
     price: { type: Number, required: true }, //单价
-    cost_price:{ type: Number, required: false }, //成本价
+    cost_price: { type: Number, required: false }, //成本价
     price_sets: [PriceSetSchema],
     weight: { type: String, required: false }, //重量
     average_shipping_time: { type: String, required: false }, //平均发货时长
@@ -40,6 +40,7 @@ const DropshippingSchema = new Schema({
     category: { type: ObjectId, required: true, ref: "Category" }, //商品类目
     specifications: [specificationSchema], //商品规格
     extras: [ExtrasSchema],
+    detail: { type: String, required: false }, //商品介紹
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
 });

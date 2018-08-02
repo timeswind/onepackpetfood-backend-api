@@ -41,6 +41,7 @@ var GoodSchema = new Schema({
     view_count: { type: Number, default: 0 },
     published: { type: Boolean, default: false }, //是否上架
     distribution: { type: Boolean, default: false }, //分销
+    detail: { type: String, required: false }, //商品介紹
     drop_shipping: { type: ObjectId, required: false, ref: "Dropshipping" },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
