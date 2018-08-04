@@ -41,6 +41,7 @@ const DropshippingSchema = new Schema({
     specifications: [specificationSchema], //商品规格
     extras: [ExtrasSchema],
     detail: { type: String, required: false }, //商品介紹
+    index_prioriety: { type: Number, required: false, default: 0 },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
 });

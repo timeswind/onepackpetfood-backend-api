@@ -17,7 +17,12 @@ app.use(checkToken());
 app.use(jwt({ secret: publicKey, algorithm: 'RS256' }).unless({ path: [/^\/socket\.io/, /^\/public/] }));
 app.use(internalPermissionCheck());
 app.use(errorhandler());
-app.use(bodyparser());
+app.use(bodyparser({
+  enableTypes: ['json', 'form', 'text'],
+  extendTypes: {
+    text: ['text/xml', 'application/xml']
+  }
+}));
 process.env.NODE_ENV !== 'production' && app.use(logger());
 app.use(scheme(config.schemeConf));
 app.use(compress())

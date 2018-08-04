@@ -3,7 +3,7 @@ var $Good = Models.$Good;
 var _ = require('lodash')
 
 exports.get = function* () {
-    const goods = yield $Good.getGoodsByStoreId(null)
+    const goods = yield $Good.getPublishedGoodsByStoreId(null)
     if (goods) {
         this.state = 200
         this.body = {

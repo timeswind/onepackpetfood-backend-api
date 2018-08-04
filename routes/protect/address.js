@@ -2,6 +2,16 @@ var Models = require('../../lib/core');
 var _ = require('lodash');
 var $Address = Models.$Address;
 
+exports.get = function* () {
+    const id = this.request.query.id
+    const address = yield $Address.getAddressesById(id)
+    this.state = 200
+    this.body = {
+        success: true,
+        address: address
+    }
+}
+
 exports.put = function* () {
     let user_id = this.state.user.id
     var updates = this.request.body
