@@ -14,7 +14,7 @@ exports.post = function* () {
     const shopcarts = yield $Shopcart.getShopcartsByIds(shopcart_ids)
     if (shopcarts && shopcarts.length > 0 && addressData) {
         var total_fee = 0
-        
+
         const addressField = `${addressData.name}|${addressData.phone}|${addressData.province}|${addressData.city}|${addressData.area}|${addressData.street}|${addressData.postcode}`
         console.log(addressField)
         var newOrderData = {
@@ -38,7 +38,7 @@ exports.post = function* () {
         if (store_trackcode) {
             newOrderData["store_trackcode"] = store_trackcode
         }
-        
+
         yield $Shopcart.removeMultiple(shopcart_ids)
         const newOrder = yield $Order.newOrder(newOrderData)
         if (newOrder) {
@@ -53,6 +53,13 @@ exports.post = function* () {
                 success: false,
                 order: {}
             }
+        }
+    } else {
+        console.log(shopcarts, addressData)
+        this.state = 400
+        this.body = {
+            success: false,
+            order: {}
         }
     }
 };
