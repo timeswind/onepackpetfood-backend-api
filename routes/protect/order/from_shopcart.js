@@ -55,7 +55,7 @@ exports.post = function* () {
             }
         }
     } else {
-        console.log(this.request)
+        console.log(this.request.body)
         console.log(shopcarts, addressData)
         this.state = 400
         this.body = {
