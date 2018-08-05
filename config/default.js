@@ -1,5 +1,5 @@
 var path = require('path');
-var production_domain = "api.cssapsu.cn"
+var production_domain = "api.xiaoquanjia.com"
 var domain = "xiaoquanju.ap.ngrok.io"//本地测试域名
 var wx_appID = "wxce6778b50056766b"//微信测试号
 var wx_appSecret = "d04a97091ed3a836d8a9e6d634801579"
