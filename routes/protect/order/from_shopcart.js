@@ -1,4 +1,5 @@
 var Models = require('../../../lib/core');
+var $User = Models.$User;
 var $Shopcart = Models.$Shopcart;
 var $Order = Models.$Order;
 var $Address = Models.$Address;
@@ -8,8 +9,12 @@ exports.post = function* () {
     const user_id = this.state.user.id
     const address_id = this.request.body.address_id
     const shopcart_ids = this.request.body.shopcart_ids
-    const store_trackcode = this.request.body.store_trackcode
+    var union_tagtrack_id = null
 
+    const userData = yield $User.getById(user_id, 'union_tagtrack_id')
+    if (userData && userData.union_tagtrack_id) {
+        union_tagtrack_id = userData.union_tagtrack_id
+    }
     const addressData = yield $Address.getAddressesById(address_id)
     const shopcarts = yield $Shopcart.getShopcartsByIds(shopcart_ids)
     if (shopcarts && shopcarts.length > 0 && addressData) {
@@ -35,8 +40,9 @@ exports.post = function* () {
         });
         newOrderData["packages"] = packages
         newOrderData["total_fee"] = financial(total_fee)
-        if (store_trackcode) {
-            newOrderData["store_trackcode"] = store_trackcode
+        
+        if (union_tagtrack_id) {
+            newOrderData["store_trackcode"] = union_tagtrack_id
         }
 
         yield $Shopcart.removeMultiple(shopcart_ids)
