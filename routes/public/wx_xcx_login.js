@@ -97,3 +97,34 @@ exports.get = function* () {
         }
     }
 };
+
+exports.post = function* () {
+    const union_id = this.request.body.union_id
+    var userInfo = yield $User.getByWxUnionId(union_id);
+    if (!userInfo) {
+        this.status = 404
+        this.body = {
+            success: false,
+            error: "User Not Found"
+        }
+    } else {
+        const payload = {
+            id: userInfo.id,
+            role: userInfo.role,
+            wx_openid: userInfo.wx_openid,
+            wx_unionid: userInfo.wx_unionid,
+        };
+        const token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '30d' });
+        this.status = 200
+        this.body = {
+            success: true,
+            name: userInfo.name,
+            role: userInfo.role,
+            wx_openid: userInfo.wx_openid,
+            wx_unionid: userInfo.wx_unionid,
+            avatar: userInfo.wx_headimgurl,
+            token: token
+        }
+    }
+}
+
