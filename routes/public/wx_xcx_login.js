@@ -9,7 +9,7 @@ const getSessionKey = require('../../lib/wechat/jscode2session');
 // const domain = config.domain;
 
 exports.get = function* () {
-    console.log("yield $Good.getPublishedGoodsByStoreId(null)")
+    console.log(this.request.query)
     const query = this.request.query;
     const js_code = query.js_code
     var userInfoData = null
@@ -27,11 +27,11 @@ exports.get = function* () {
     const openid = parsedSessionKeyAndOpenIDAndUnionID["openid"]
     const unionid = parsedSessionKeyAndOpenIDAndUnionID["unionid"]
 
-    var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
+    // var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
 
-    var data = pc.decryptData(query.encryptedData , query.iv)
+    // var data = pc.decryptData(query.encryptedData , query.iv)
     
-    console.log('解密后 data: ', data)
+    // console.log('解密后 data: ', data)
 
     console.log(parsedSessionKeyAndOpenIDAndUnionID)
     this.status = 200;
