@@ -26,13 +26,11 @@ exports.get = function* () {
     const openid = parsedSessionKeyAndOpenIDAndUnionID["openid"]
     const unionid = parsedSessionKeyAndOpenIDAndUnionID["unionid"]
 
-    if ('encryptedData' in query && 'iv' in query) {
-        var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
+    var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
 
-        var data = pc.decryptData(query.encryptedData , query.iv)
-        
-        console.log('解密后 data: ', data)
-    }
+    var data = pc.decryptData(query.encryptedData , query.iv)
+    
+    console.log('解密后 data: ', data)
 
     console.log(parsedSessionKeyAndOpenIDAndUnionID)
     this.status = 200;
