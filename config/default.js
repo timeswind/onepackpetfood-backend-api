@@ -1,8 +1,10 @@
 var path = require('path');
 var production_domain = "api.xiaoquanjia.com"
 var domain = "xiaoquanju.ap.ngrok.io"//本地测试域名
-var wx_appID = "wxce6778b50056766b"//微信测试号
-var wx_appSecret = "d04a97091ed3a836d8a9e6d634801579"
+var wx_test_appID = "wxce6778b50056766b"//微信测试号
+var wx_test_appSecret = "d04a97091ed3a836d8a9e6d634801579"//微信测试号Secret
+var wx_appID = "wxad001b07cb52f3fe" //小犬居宠物生活服务号APPID
+var wx_appSecret = "025c5567e6a65f0624dd16d7bd1ea819" //小犬居宠物生活服务号APPSECRET
 var wx_xcx_appID = "wxb3ff1fcb37b94be1" //小程序appid
 var wx_xcx_appSecret = "a6c3766dc5d9b08cdda977b801617356"//小程序appsecret
 var wechat_pay_mchid = "1509964241"
@@ -13,8 +15,6 @@ var wechat_pay_refund_url = `https://${production_domain}/testpay/wechat_refund`
 
 if (process.env.NODE_ENV === 'production') {
     domain = production_domain
-    wx_appID = "wxad001b07cb52f3fe" //小犬居宠物生活服务号
-    wx_appSecret = "025c5567e6a65f0624dd16d7bd1ea819"
     wechat_pay_notify_url = `https://${production_domain}/api/public/wechat_pay_callback`
     wechat_pay_refund_url = `https://${production_domain}/api/public/wechat_refund`
 }
@@ -25,6 +25,8 @@ module.exports = {
   publicKeyName: 'platform.rsa.pub',
   wechat_pay_cert_name: 'apiclient_cert.p12',
   domain: domain,
+  wx_test_appID: wx_test_appID,
+  wx_test_appSecret: wx_test_appSecret,
   wx_appID: wx_appID,
   wx_appSecret: wx_appSecret,
   wx_xcx_appID: wx_xcx_appID,
