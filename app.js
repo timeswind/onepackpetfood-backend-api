@@ -33,6 +33,7 @@ app.use(scheme(config.schemeConf));
 app.use(compress())
 app.use(router(app, config.routerConf));
 app.use(function *(){
+  this.status = 404;
   this.body = 'Resource not found';
 });
 
