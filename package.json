@@ -1,6 +1,6 @@
 {
   "name": "xiaoquanju-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "xiaoquanju-api",
   "main": "app.js",
   "scripts": {
