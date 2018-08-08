@@ -20,12 +20,11 @@ exports.get = function* () {
     const union_tagtrack_id = query.union_tagtrack_id
     const sessionKeyAndOpenID = yield getSessionKey(js_code)
     const parsedSessionKeyAndOpenIDAndUnionID = JSON.parse(sessionKeyAndOpenID)
-
     const session_key = parsedSessionKeyAndOpenIDAndUnionID["session_key"]
     const openid = parsedSessionKeyAndOpenIDAndUnionID["openid"]
     const unionid = parsedSessionKeyAndOpenIDAndUnionID["unionid"]
 
-    // console.log(parsedSessionKeyAndOpenIDAndUnionID)
+    console.log(parsedSessionKeyAndOpenIDAndUnionID)
     this.status = 200;
     this.body = "test";
 

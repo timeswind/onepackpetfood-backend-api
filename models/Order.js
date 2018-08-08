@@ -32,11 +32,14 @@ var OrderSchema = new Schema({
     store_trackcode: { type: String, require: false }, //商家返佣追踪码
     buyer_rated: { type: Boolean, required: false }, //买家是否已评价。
     pay_at: { type: Date }, //付款时间
+    receive_at: { type: Date }, //用户确认收货时间
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
 });
 
-OrderSchema.index({ user: 1 });
+OrderSchema.index({ user: 1, status: 1 });
+OrderSchema.index({ store_trackcode: 1 });
+
 module.exports = mongoose.model('Order', OrderSchema);
 //STATUS
 
