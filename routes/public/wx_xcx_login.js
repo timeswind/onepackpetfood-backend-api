@@ -54,24 +54,6 @@ exports.get = function* () {
             }
             return
         }
-    } else {
-        if ('encryptedData' in query && 'iv' in query) {
-            console.log(config.wx_xcx_appID, session_key)
-            var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
-
-            var data = pc.decryptData(query.encryptedData, query.iv)
-            //         解密后 data:  { openId: 'oGb-e4mYiefdJMEzl8b52MHoOSy8',
-            //   nickName: '商家测试号',
-            //   gender: 0,
-            //   language: 'zh_CN',
-            //   city: '',
-            //   province: '',
-            //   country: '',
-            //   avatarUrl: '',
-            //   unionId: 'oCVKj0owxcTliAY7iyJekqHK75bM',
-            //   watermark: { timestamp: 1533745646, appid: 'wxb3ff1fcb37b94be1' } }
-            console.log('解密后 data: ', data)
-        }
     }
 
 
@@ -190,10 +172,8 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
     iv = new Buffer(iv, 'base64')
 
     try {
-        // 解密
         var decipher = crypto.createDecipheriv('aes-128-cbc', sessionKey, iv)
-        // 设置自动 padding 为 true，删除填充补位
-        decipher.setAutoPadding(true)
+        decipher.setAutoPadding(false)
         var decoded = decipher.update(encryptedData, 'binary', 'utf8')
         decoded += decipher.final('utf8')
 
