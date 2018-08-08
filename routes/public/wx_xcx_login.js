@@ -6,6 +6,8 @@ var qs = require('qs');
 var config = require('config-lite');
 var privateKey = fs.readFileSync(config.privateKeyName);
 const getSessionKey = require('../../lib/wechat/jscode2session');
+var crypto = require('crypto')
+
 // const domain = config.domain;
 
 exports.get = function* () {
