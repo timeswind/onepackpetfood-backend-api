@@ -54,6 +54,24 @@ exports.get = function* () {
             }
             return
         }
+    } else {
+        if ('encryptedData' in query && 'iv' in query) {
+            console.log(config.wx_xcx_appID, session_key)
+            var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
+
+            var data = pc.decryptData(query.encryptedData, query.iv)
+            //         解密后 data:  { openId: 'oGb-e4mYiefdJMEzl8b52MHoOSy8',
+            //   nickName: '商家测试号',
+            //   gender: 0,
+            //   language: 'zh_CN',
+            //   city: '',
+            //   province: '',
+            //   country: '',
+            //   avatarUrl: '',
+            //   unionId: 'oCVKj0owxcTliAY7iyJekqHK75bM',
+            //   watermark: { timestamp: 1533745646, appid: 'wxb3ff1fcb37b94be1' } }
+            console.log('解密后 data: ', data)
+        }
     }
 
 
@@ -182,6 +200,7 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
         decoded = JSON.parse(decoded)
 
     } catch (err) {
+        console.log(err)
         throw new Error('Illegal Buffer')
     }
 
