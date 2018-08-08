@@ -9,6 +9,7 @@ const getSessionKey = require('../../lib/wechat/jscode2session');
 // const domain = config.domain;
 
 exports.get = function* () {
+    console.log("function called")
     const query = this.request.query;
     const js_code = query.js_code
     var userInfoData = null
