@@ -26,7 +26,7 @@ exports.get = function* () {
     const openid = parsedSessionKeyAndOpenIDAndUnionID["openid"]
     const unionid = parsedSessionKeyAndOpenIDAndUnionID["unionid"]
 
-    if ('encryptedData' in query && 'vi' in query) {
+    if ('encryptedData' in query && 'iv' in query) {
         var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
 
         var data = pc.decryptData(query.encryptedData , query.iv)
