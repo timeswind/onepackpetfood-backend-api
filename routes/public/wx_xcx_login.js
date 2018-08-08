@@ -166,8 +166,5 @@ function WXBizDataCrypt(appId, sessionKey) {
     }
   
     return decoded
-  }
-  
-  module.exports = WXBizDataCrypt
-  
+  }  
 
