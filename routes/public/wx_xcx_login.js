@@ -9,7 +9,6 @@ const getSessionKey = require('../../lib/wechat/jscode2session');
 // const domain = config.domain;
 
 exports.get = function* () {
-    console.log(this.request.query)
     const query = this.request.query;
     const js_code = query.js_code
     var userInfoData = null
@@ -27,11 +26,13 @@ exports.get = function* () {
     const openid = parsedSessionKeyAndOpenIDAndUnionID["openid"]
     const unionid = parsedSessionKeyAndOpenIDAndUnionID["unionid"]
 
-    // var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
+    if ('encryptedData' in query && 'iv' in query) {
+        var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
 
-    // var data = pc.decryptData(query.encryptedData , query.iv)
-    
-    // console.log('解密后 data: ', data)
+        var data = pc.decryptData(query.encryptedData, query.iv)
+
+        console.log('解密后 data: ', data)
+    }
 
     console.log(parsedSessionKeyAndOpenIDAndUnionID)
     this.status = 200;
@@ -139,32 +140,31 @@ exports.post = function* () {
 function WXBizDataCrypt(appId, sessionKey) {
     this.appId = appId
     this.sessionKey = sessionKey
-  }
-  
-  WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
+}
+
+WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
     // base64 decode
     var sessionKey = new Buffer(this.sessionKey, 'base64')
     encryptedData = new Buffer(encryptedData, 'base64')
     iv = new Buffer(iv, 'base64')
-  
-    try {
-       // 解密
-      var decipher = crypto.createDecipheriv('aes-128-cbc', sessionKey, iv)
-      // 设置自动 padding 为 true，删除填充补位
-      decipher.setAutoPadding(true)
-      var decoded = decipher.update(encryptedData, 'binary', 'utf8')
-      decoded += decipher.final('utf8')
-      
-      decoded = JSON.parse(decoded)
-  
-    } catch (err) {
-      throw new Error('Illegal Buffer')
-    }
-  
-    if (decoded.watermark.appid !== this.appId) {
-      throw new Error('Illegal Buffer')
-    }
-  
-    return decoded
-  }  
 
+    try {
+        // 解密
+        var decipher = crypto.createDecipheriv('aes-128-cbc', sessionKey, iv)
+        // 设置自动 padding 为 true，删除填充补位
+        decipher.setAutoPadding(true)
+        var decoded = decipher.update(encryptedData, 'binary', 'utf8')
+        decoded += decipher.final('utf8')
+
+        decoded = JSON.parse(decoded)
+
+    } catch (err) {
+        throw new Error('Illegal Buffer')
+    }
+
+    if (decoded.watermark.appid !== this.appId) {
+        throw new Error('Illegal Buffer')
+    }
+
+    return decoded
+}
