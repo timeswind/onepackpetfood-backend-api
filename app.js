@@ -23,9 +23,11 @@ app.use(bodyparser({
     text: ['text/xml', 'application/xml']
   }
 }));
-// process.env.NODE_ENV !== 'production' && app.use(logger());
+
+process.env.NODE_ENV !== 'production' && app.use(logger());
+
 console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-app.use(logger())
+// app.use(logger())
 
 app.use(scheme(config.schemeConf));
 app.use(compress())
