@@ -31,6 +31,8 @@ exports.get = function* () {
     if (!unionid) {
         if ('encryptedData' in query && 'iv' in query) {
             console.log(config.wx_xcx_appID, session_key)
+            console.log(query.encryptedData)
+            console.log(query.iv)
             var pc = new WXBizDataCrypt(config.wx_xcx_appID, session_key)
 
             var data = pc.decryptData(query.encryptedData, query.iv)
