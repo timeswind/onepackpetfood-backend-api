@@ -180,7 +180,7 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
 
         // var decoded = decipher.update(encryptedData, 'binary', 'utf8')
         // decoded += decipher.final('utf8')
-
+        console.log(decoded)
         decoded = JSON.parse(decoded)
 
     } catch (err) {
