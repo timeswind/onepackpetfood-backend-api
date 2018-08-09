@@ -9,7 +9,7 @@ const getSessionKey = require('../../lib/wechat/jscode2session');
 var crypto = require('crypto')
 
 // const domain = config.domain;
-
+//小程序使用only
 exports.get = function* () {
     const query = this.request.query;
     const js_code = query.js_code
@@ -111,6 +111,10 @@ exports.get = function* () {
         }
 
     } else {
+        console.log(userInfo)
+        if (!userInfo.wx_openids.miniprogram) {
+
+        }
         const payload = {
             id: userInfo.id,
             role: userInfo.role,

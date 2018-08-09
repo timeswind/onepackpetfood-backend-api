@@ -3,7 +3,7 @@ var $Tagtrack = Models.$Tagtrack;
 var $Store = Models.$Store;
 // var _ = require('lodash');
 var shortid = require('shortid');
-shortid.characters("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#")
+shortid.characters("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@*")
 
 exports.put = function* () {
     // let user_id = this.state.user.id
