@@ -173,9 +173,12 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
 
     try {
         var decipher = crypto.createDecipheriv('aes-128-cbc', sessionKey, iv)
-        decipher.setAutoPadding(false)
-        var decoded = decipher.update(encryptedData, 'binary', 'utf8')
-        decoded += decipher.final('utf8')
+
+        var decoded = decipher.update(encryptedData, 'base64', 'utf8');
+        decoded += decipher.final('utf8');
+
+        // var decoded = decipher.update(encryptedData, 'binary', 'utf8')
+        // decoded += decipher.final('utf8')
 
         decoded = JSON.parse(decoded)
 
