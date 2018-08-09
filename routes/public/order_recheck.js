@@ -33,9 +33,9 @@ exports.get = function* () {
     }
 
     this.status = 200
-    this.body = result
+    this.body = "recheck"
 }
 
 function WechatPayTotalFeeToYuan(wechatpay_total_fee) {
     return (Number.parseFloat(wechatpay_total_fee) / 100).toFixed(2)
-  }
+}
