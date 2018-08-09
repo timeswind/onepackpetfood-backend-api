@@ -113,7 +113,7 @@ exports.get = function* () {
     } else {
         console.log(userInfo)
         if (!userInfo.wx_openids.miniprogram) {
-
+            yield $User.patchUserWxOpenIds(userInfo.id, "miniprogram", openid)
         }
         const payload = {
             id: userInfo.id,
