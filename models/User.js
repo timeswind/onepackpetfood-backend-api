@@ -12,8 +12,13 @@ var UserSchema = new Schema({
   password: { type: String, required: false },
   role: { type: Number, required: true }, //  1 for normal user, 2 for organization account, 100 for admin
   permissions: { type: [String] },
-
-  wx_openid: { type: String, required: false, sparse: true, unique: true },
+  wx_openids: {
+    service: { type: String, required: false }, //服务号
+    subscribe: { type: String, required: false }, //订阅号
+    miniprogram: { type: String, required: false },//小程序
+    site: { type: String, required: false } //网页应用
+  },
+  wx_unionid: { type: String, required: false, sparse: true, unique: true },
   wx_nickname: { type: String },
   wx_sex: { type: String },
   wx_province: { type: String },
@@ -21,7 +26,6 @@ var UserSchema = new Schema({
   wx_country: { type: String },
   wx_headimgurl: { type: String },
   wx_privilege: [{ type: String }],
-  wx_unionid: { type: String, required: false, sparse: true, unique: true },
   union_tagtrack_id: { type: String }, //商家返佣追踪码
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }

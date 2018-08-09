@@ -12,9 +12,9 @@ const tenpay_config = {
   refund_url: config.wechat_pay_refund_url,
   spbill_create_ip: '127.0.0.1'
 };
-
+//小程序支付only
 exports.get = function* () {
-  const openid = this.state.user.wx_openid
+  const openid = this.state.user.wx_openids.miniprogram
   const order_id = this.request.query.order_id
   const api = new tenpay(tenpay_config);
   const order = yield $Order.getOrderById(order_id)

@@ -69,7 +69,9 @@ exports.get = function* () {
         newUser = {
             name: parsedUserInfo["nickName"],
             role: 1, //普通用户
-            wx_openid: openid,
+            wx_openids: {
+                miniprogram: openid
+            },
             wx_unionid: unionid,
             wx_nickname: parsedUserInfo["nickName"],
             wx_sex: parsedUserInfo["gender"],
@@ -86,8 +88,7 @@ exports.get = function* () {
             var payload = {
                 id: newUser.id,
                 role: newUser.role,
-                wx_openid: newUser.wx_openid,
-                wx_unionid: newUser.wx_unionid,
+                wx_unionid: newUser.wx_unionid
             };
 
             var token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '30d' });
@@ -96,7 +97,7 @@ exports.get = function* () {
                 success: true,
                 name: newUser.name,
                 role: newUser.role,
-                wx_openid: newUser.wx_openid,
+                wx_openid: newUser.wx_openids.miniprogram,
                 wx_unionid: newUser.wx_unionid,
                 avatar: newUser.wx_headimgurl,
                 token: token,
@@ -113,7 +114,6 @@ exports.get = function* () {
         const payload = {
             id: userInfo.id,
             role: userInfo.role,
-            wx_openid: userInfo.wx_openid,
             wx_unionid: userInfo.wx_unionid,
         };
         const token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '30d' });
@@ -123,7 +123,7 @@ exports.get = function* () {
             success: true,
             name: userInfo.name,
             role: userInfo.role,
-            wx_openid: userInfo.wx_openid,
+            wx_openid: userInfo.wx_openids.miniprogram,
             wx_unionid: userInfo.wx_unionid,
             avatar: userInfo.wx_headimgurl,
             token: token,
@@ -145,7 +145,6 @@ exports.post = function* () {
         const payload = {
             id: userInfo.id,
             role: userInfo.role,
-            wx_openid: userInfo.wx_openid,
             wx_unionid: userInfo.wx_unionid,
         };
         const token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '30d' });
@@ -154,7 +153,7 @@ exports.post = function* () {
             success: true,
             name: userInfo.name,
             role: userInfo.role,
-            wx_openid: userInfo.wx_openid,
+            wx_openid: userInfo.wx_openids.miniprogram,
             wx_unionid: userInfo.wx_unionid,
             avatar: userInfo.wx_headimgurl,
             token: token

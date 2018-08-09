@@ -9,6 +9,7 @@ const getAccessToken = require('../../lib/wechat/oath_access_token');
 const getUserInfo = require('../../lib/wechat/get_userinfo');
 const domain = config.domain;
 
+//服务号login
 exports.get = function* () {
     const query = this.request.query;
     const code = query.code
@@ -28,7 +29,9 @@ exports.get = function* () {
         //第一次登入，注册用户
         newUser = {
             name: parsedUserInfo.nickname,
-            wx_openid: parsedUserInfo.openid,
+            wx_openids: {
+                service: parsedUserInfo.openid
+            },
             wx_nickname: parsedUserInfo.nickname,
             wx_sex: parsedUserInfo.sex,
             wx_province: parsedUserInfo.province,
@@ -73,8 +76,6 @@ exports.get = function* () {
         } else {
             const payload = {
                 id: userInfo.id,
-                wx_openid: userInfo.wx_openid,
-                name: userInfo.name,
                 role: userInfo.role
             };
 
