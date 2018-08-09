@@ -1,6 +1,7 @@
 const tenpay = require('tenpay');
 var Models = require('../../lib/core');
 var $Order = Models.$Order;
+var $User = Models.$User;
 var config = require('config-lite');
 
 const tenpay_config = {
@@ -14,7 +15,8 @@ const tenpay_config = {
 };
 //小程序支付only
 exports.get = function* () {
-  const openid = this.state.user.wx_openids.miniprogram
+  const user = yield $User.getById(this.state.user.id)
+  const openid = user.wx_openids.miniprogram
   const order_id = this.request.query.order_id
   const api = new tenpay(tenpay_config);
   const order = yield $Order.getOrderById(order_id)
