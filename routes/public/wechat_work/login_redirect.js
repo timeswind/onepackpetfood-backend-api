@@ -52,7 +52,6 @@ exports.get = function* () {
         newUser = {
             ww_userid: userInfoData.userid,
             name: userInfoData.name,
-            email: userInfoData.email,
             phone: userInfoData.mobile,
             avatar: userInfoData.avatar,
             role: 100 //企业内部管理员
@@ -70,7 +69,6 @@ exports.get = function* () {
             var params = {
                 type: "ww_login", //企业微信登入
                 name: newUser.name,
-                email: newUser.email,
                 avatar: newUser.avatar,
                 token: token,
                 role: newUser.role
@@ -92,7 +90,6 @@ exports.get = function* () {
         var params = {
             type: "ww_login", //企业微信登入
             name: findUserInDB.name,
-            email: findUserInDB.email,
             avatar: findUserInDB.avatar,
             token: token,
             role: findUserInDB.role
