@@ -81,6 +81,23 @@ exports.get = function* () {
             this.body = 'fail'
         }
     } else {
+        var payload = {
+            id: findUserInDB.id,
+            ww_userid: findUserInDB.ww_userid,
+            role: findUserInDB.role
+        };
 
+        var token = jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '7d' });
+        const baseUrl = `http://${domain}/login?`;
+        var params = {
+            type: "ww_login", //企业微信登入
+            name: findUserInDB.name,
+            email: findUserInDB.email,
+            avatar: findUserInDB.avatar,
+            token: token,
+            role: findUserInDB.role
+        }
+        const redirectUrl = baseUrl + qs.stringify(params)
+        this.redirect(redirectUrl)
     }
 };
