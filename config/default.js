@@ -1,5 +1,6 @@
 var path = require('path');
 var production_domain = "api.xiaoquanjia.com"
+var apiUrlPrefix = production_domain + '/development/api' //本地测试
 var domain = "xiaoquanju.ap.ngrok.io"//本地测试域名
 var wx_test_appID = "wxce6778b50056766b"//微信测试号
 var wx_test_appSecret = "d04a97091ed3a836d8a9e6d634801579"//微信测试号Secret
@@ -12,11 +13,15 @@ var wechat_pay_api_key = "mufBu3DgPB3ENFh82WFeAtwzPe8JpAWx"
 var wechat_pay_notify_url = `https://${production_domain}/testpay/wechat_pay_callback`
 var wechat_pay_refund_url = `https://${production_domain}/testpay/wechat_refund`
 
+var ww_corpid = "ww887fc00c230ccefc" //企业微信coprid
+var ww_corpsecret_1000008 = "e8uBIBLhfTR1_JjiicDmJs-5oPjwoH88hYp2gn-7Q74" //企业微信1000008应用
+
 
 if (process.env.NODE_ENV === 'production') {
-    domain = production_domain
-    wechat_pay_notify_url = `https://${production_domain}/api/public/wechat_pay_callback`
-    wechat_pay_refund_url = `https://${production_domain}/api/public/wechat_refund`
+  domain = production_domain
+  apiUrlPrefix = production_domain + '/api' //本地测试
+  wechat_pay_notify_url = `https://${production_domain}/api/public/wechat_pay_callback`
+  wechat_pay_refund_url = `https://${production_domain}/api/public/wechat_refund`
 }
 
 module.exports = {
@@ -25,6 +30,7 @@ module.exports = {
   publicKeyName: 'platform.rsa.pub',
   wechat_pay_cert_name: 'apiclient_cert.p12',
   domain: domain,
+  apiUrlPrefix: apiUrlPrefix,
   wx_test_appID: wx_test_appID,
   wx_test_appSecret: wx_test_appSecret,
   wx_appID: wx_appID,
@@ -42,5 +48,7 @@ module.exports = {
     productionUrl: 'mongodb://127.0.0.1:27017/xiaoquanju'
   },
   schemeConf: path.join(__dirname, './default.scheme'),
-  routerConf: { wildcard: '_', root: 'routes' }
+  routerConf: { wildcard: '_', root: 'routes' },
+  ww_corpid: ww_corpid,
+  ww_corpsecret_1000008: ww_corpsecret_1000008
 };

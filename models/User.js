@@ -12,6 +12,7 @@ var UserSchema = new Schema({
   password: { type: String, required: false },
   role: { type: Number, required: true }, //  1 for normal user, 2 for organization account, 100 for admin
   permissions: { type: [String] },
+  ww_userid: { type: String, required: false, sparse: true, unique: true }, //企业微信userid
   wx_openids: {
     service: { type: String, required: false }, //服务号
     subscribe: { type: String, required: false }, //订阅号

@@ -28,5 +28,5 @@ exports.get = function* () {
   //   self.status = 200
   //   self.body = xml
   // }
-
+  this.body = "sitemap"
 };
