@@ -8,29 +8,33 @@ var privateKey = fs.readFileSync(config.privateKeyName);
 const getWechatWorkAccessToken = require('../../../lib/wechat_work/get_access_token');
 const codeToUserInfo = require('../../../lib/wechat_work/code_to_userinfo.js');
 const getUserInfoData = require('../../../lib/wechat_work/get_user.js');
+// const sendMessageTest = require('../../../lib/wechat_work/send_message.js');
 const domain = config.domain;
 
-//服务号login
 exports.get = function* () {
-    var access_token = null
+    // const test = yield sendMessageTest('textcard', {
+    //     "title": "通知测试",
+    //     "description": `<div class=\"gray\">${new Date()}</div> <div class=\"normal\">用户下单</div><div class=\"highlight\">请及时处理</div>`,
+    //     "url": "https://api.xiaoquanjia.com",
+    //     "btntxt": "查看"
+    // })
+    console.log(test)
     const query = this.request.query;
     const code = query.code
-    const state = query.state
+    // const state = query.state
     // const appid = query.appid // corpid
-    var accessTokenData = yield getWechatWorkAccessToken()
-    accessTokenData = JSON.parse(accessTokenData)
-    console.log(accessTokenData)
-    if (accessTokenData.errcode === 0) {
-        access_token = accessTokenData.access_token
-    } else {
+    const access_token = yield getWechatWorkAccessToken()
+
+    if (!code) {
         this.status = 400
         this.body = {
             success: false,
-            accessTokenData: accessTokenData
+            error: "missing code"
         }
         return
     }
-    var userInfo = yield codeToUserInfo(accessTokenData.access_token, code)
+
+    var userInfo = yield codeToUserInfo(access_token, code)
     userInfo = JSON.parse(userInfo)
     console.log("userInfo", userInfo)
     if (userInfo.errcode !== 0) {
@@ -45,7 +49,7 @@ exports.get = function* () {
 
     const findUserInDB = yield $User.getByWwUserId(userInfo.UserId)
     if (!findUserInDB) {
-        var userInfoData = yield getUserInfoData(accessTokenData.access_token, userInfo.UserId)
+        var userInfoData = yield getUserInfoData(access_token, userInfo.UserId)
         userInfoData = JSON.parse(userInfoData)
         console.log("userInfoData", userInfoData)
         //第一次登入，注册用户

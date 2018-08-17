@@ -4,6 +4,7 @@ var $Shopcart = Models.$Shopcart;
 var $Order = Models.$Order;
 var $Address = Models.$Address;
 var _ = require("lodash");
+var notifyInWechatWork = require('../../../lib/wechat_work/send_message');
 
 exports.post = function* () {
     const user_id = this.state.user.id
@@ -40,7 +41,7 @@ exports.post = function* () {
         });
         newOrderData["packages"] = packages
         newOrderData["total_fee"] = financial(total_fee)
-        
+
         if (union_tagtrack_id) {
             newOrderData["store_trackcode"] = union_tagtrack_id
         }
@@ -48,6 +49,12 @@ exports.post = function* () {
         yield $Shopcart.removeMultiple(shopcart_ids)
         const newOrder = yield $Order.newOrder(newOrderData)
         if (newOrder) {
+            yield notifyInWechatWork('textcard', {
+                "title": "微信小程序新订单",
+                "description": `<div class=\"gray\">${new Date()}</div> <div class=\"normal\">${newOrder.packages.length}样单品, ￥${newOrder.total_fee}</div><div class=\"highlight\">请及时处理</div>`,
+                "url": `https://api.xiaoquanjia.com/order/${newOrder._id}`,
+                "btntxt": "查看订单"
+            })
             this.state = 200
             this.body = {
                 success: true,
