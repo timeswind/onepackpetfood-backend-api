@@ -1,7 +1,7 @@
 var path = require('path');
 var production_domain = "api.xiaoquanjia.com"
 var apiUrlPrefix = production_domain + '/development/api' //本地测试
-var domain = "xiaoquanju.ap.ngrok.io"//本地测试域名
+var domain = "xiaoquanju.ngrok.io"//本地测试域名
 var wx_test_appID = "wxce6778b50056766b"//微信测试号
 var wx_test_appSecret = "d04a97091ed3a836d8a9e6d634801579"//微信测试号Secret
 var wx_appID = "wxad001b07cb52f3fe" //小犬居宠物生活服务号APPID

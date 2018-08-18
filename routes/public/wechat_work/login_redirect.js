@@ -18,7 +18,7 @@ exports.get = function* () {
     //     "url": "https://api.xiaoquanjia.com",
     //     "btntxt": "查看"
     // })
-    console.log(test)
+    // console.log(test)
     const query = this.request.query;
     const code = query.code
     // const state = query.state
